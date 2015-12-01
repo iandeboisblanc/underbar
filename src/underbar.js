@@ -201,7 +201,22 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+    // Pass if empty collection:
+    if (Object.keys(collection).length === 0) {
+      return true;
+    }
+    // Default iterator passes back the element itself:
+    if (arguments.length < 2) {
+      iterator = function(item) {return item;};
+    }
+    return _.reduce(collection, function(soFarSoGood, item){
+      if (soFarSoGood) {
+        return Boolean(iterator(item));
+      }
+      else{
+        return false;
+      }
+    }, true); //soFarSoGood default value = true
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
