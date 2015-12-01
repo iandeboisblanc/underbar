@@ -97,6 +97,14 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var returnArray = [];
+    //if a value from the given array cannot be found in the returnArray, add it.
+    _.each(array, function(num){
+      if(_.indexOf(returnArray, num) === -1){
+        returnArray.push(num);
+      }
+    });
+    return returnArray;
   };
 
 
