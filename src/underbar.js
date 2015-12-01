@@ -223,6 +223,18 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    // Default iterator passes back the element itself:
+    if (arguments.length < 2) {
+      iterator = function(item) {return item;};
+    }
+    // If all items return false, then return false, otherwise, return true
+    var negaIterator = function(item){return !iterator(item);};
+    if (_.every(collection, negaIterator)){
+      return false;
+    }
+    else{
+      return true;
+    }
   };
 
 
