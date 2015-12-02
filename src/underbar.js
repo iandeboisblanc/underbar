@@ -331,7 +331,7 @@
       newResult = func.apply(this, arguments)
       pastResults.push({args: argString, result: newResult})
       return newResult;
-    }
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -340,7 +340,13 @@
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
+  
   _.delay = function(func, wait) {
+    var argsToUse = [];
+    for (var i = 2; i < arguments.length; i++) {
+      argsToUse.push(arguments[i]);
+    }
+    return setTimeout(function(){func.apply(this, argsToUse)},wait);
   };
 
 
