@@ -319,6 +319,19 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var pastResults = []; // To store past args and results
+    var newResult;
+    return function() {
+      var argString = JSON.stringify(arguments);
+      for (var i = 0; i < pastResults.length; i ++){
+        if (argString === pastResults[i].args) { // Check if args have been used before
+          return pastResults[i].result; // If so, return the complimentary result
+        }
+      }
+      newResult = func.apply(this, arguments)
+      pastResults.push({args: argString, result: newResult})
+      return newResult;
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
